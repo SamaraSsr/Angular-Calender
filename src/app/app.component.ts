@@ -820,7 +820,7 @@ export class AppComponent implements OnInit {
         dayOfWeek: date.getDay(),
         isToday: date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear(),
         isSelected: date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear(),
-        isDisabled: date.getDay() === 0 || date.getDay() === 6 || this.isDisabledDate(date, monthNumber, year),
+        isDisabled: this.isDisabledDate(date, monthNumber, year),
         monthName: date.toLocaleString('en-us', { month: 'long' }),
         dayName: date.toLocaleString('en-us', { weekday: 'short' })
       });
@@ -831,7 +831,7 @@ export class AppComponent implements OnInit {
   }
 
   isDisabledDate = (inCommingDate: Date, monthNumber: string | number, year: string | number) => {
-    const filteredDates = this.blockedDates.filter(date => Number(date.themonth) === monthNumber && date.theyear === year);
+    const filteredDates = this.blockedDates.filter(date => Number(date.themonth) === monthNumber && Number(date.theyear) === year);
     return filteredDates.find((filteredDate: any) => Number(filteredDate.theday) === inCommingDate.getDate()) ? true : false;
   }
 }
